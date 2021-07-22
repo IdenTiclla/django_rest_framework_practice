@@ -2,14 +2,18 @@ from django.shortcuts import render
 import rest_framework
 from rest_framework import response
 from rest_framework import serializers
+from rest_framework import permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 from drfapp.serializers import StudentSerializer
 
 from drfapp.models import Student
 
 class TestView(APIView):
+
+    permission_classes = (IsAuthenticated, )
     def get(self, request, *args, **kwargs):
         qs = Student.objects.all()
         student1 = qs.first()
